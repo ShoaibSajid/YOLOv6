@@ -1,0 +1,134 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Extract_Frames",
+			"type": "debugpy",
+			"request": "launch",
+			"program": "Extract_Frames.py",
+			"console": "integratedTerminal",
+			"cwd": "Shoaib"
+		},
+
+		{
+			"name": "Train YOLO",
+			"type": "debugpy",
+			"request": "launch",
+			"program": "tools/train.py",
+			"console": "integratedTerminal",
+			"args": [	"--batch"				,"32"							,
+						"--conf"				,"Shoaib/yolov6s_finetune.py"			,  //,"configs/yolov6s_finetune.py"	,
+						"--data"				,"Shoaib/connector_dataset_org.yaml",
+						// "--img"					,"720"							,
+						"--fuse_ab"
+						"--device"				,"6"							,
+						"--epochs"				, "40000"						,
+						"--cache-ram"			,
+						"--name"				, "yolov6s/org_fuseab"
+						// "--resume"
+					]
+		},
+
+		{
+			"name": "Train YOLO - L",
+			"type": "debugpy",
+			"request": "launch",
+			"program": "tools/train.py",
+			"console": "integratedTerminal",
+			"args": [	"--batch"				,"16"							,
+						"--conf"				,"Shoaib/yolov6l_finetune.py"			,  //,"configs/yolov6s_finetune.py"	,
+						"--data"				,"Shoaib/connector_dataset_org.yaml",
+						// "--img"					,"720"							,
+						"--fuse_ab"
+						"--device"				,"7"							,
+						"--epochs"				, "40000"						,
+						"--cache-ram"			,
+						"--name"				, "yolov6l/org_fuseab",
+						// "--resume"
+					]
+		},
+
+		{
+			"name": "Validate YOLO",
+			"type": "debugpy",
+			"request": "launch",
+			"program": "tools/eval.py",
+			"console": "integratedTerminal",
+			"args": [	
+						"--weights"		, "runs/train/yolov6s/org_fuseab/weights/best_ckpt.pt"												, 
+						"--name"		, "yolov6s",
+						// "--weights"		, "runs/train/yolov6l/org_fuseab/weights/best_ckpt.pt"												, 
+						// "--name"		, "yolov6l",
+						// "--source"		, "Shoaib/connector_org/images/train/"		, 
+						// "--source"		, "Shoaib/connector_org/images/train/frame_12.png"		, 
+						"--data"		, "Shoaib/connector_dataset_org.yaml"													,
+						"--device"		, "0"																				, 
+						// "--do_pr_metric", "True"
+
+					],
+			"justMyCode": false
+		},
+
+		{
+			"name": "Infer YOLO",
+			"type": "debugpy",
+			"request": "launch",
+			"program": "tools/infer.py",
+			"console": "integratedTerminal",
+			"args": [	
+						"--weights"		, "Shoaib/yolov6s_best_ckpt.pt"												, 
+						"--name"		, "yolov6s",
+						// "--weights"		, "Shoaib/yolov6l_best_ckpt.pt"												, 
+						// "--name"		, "yolov6l",
+						"--source"		, "Shoaib/connector_org/images/train/"		, 
+						// "--source"		, "Shoaib/connector_org/images/train/frame_12.png"		, 
+						"--yaml"		, "Shoaib/connector_dataset_org.yaml"													,
+						"--device"		, "0"																				, 
+						"--save-txt"
+
+					]
+		},
+
+		{
+			"name": "Infer YOLO Video",
+			"type": "debugpy",
+			"request": "launch",
+			"program": "tools/infer.py",
+			"console": "integratedTerminal",
+			"args": [	
+						// "--weights"		, "Shoaib/yolov6s_best_ckpt.pt"	, 
+						// "--name"		, "video_cropped_yolov6s"										, 
+						"--weights"		, "Shoaib/yolov6l_best_ckpt.pt"	, 
+						"--name"		, "video_cropped_yolov6l"										, 
+
+						"--yaml"		, "Shoaib/connector_dataset_org.yaml"			, 
+						"--device"		, "0"											, 
+						// "--conf-thres"	, "0.5"											, 
+						// "--iou-thres"	, "0.5"										, 
+						"--source"		, "./Shoaib/compressed_connector.mp4"			, 
+					]
+		},
+
+		{
+			"name": "Check",
+			"type": "debugpy",
+			"request": "launch",
+			"program": "check2.py",
+			"console": "integratedTerminal",
+			"cwd": "./Shoaib"
+		},
+
+
+		{
+			"name": "Compare",
+			"type": "debugpy",
+			"request": "launch",
+			"program": "compare.py",
+			"console": "integratedTerminal",
+			"cwd": "./Shoaib"
+		}
+	]
+}
