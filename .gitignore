@@ -1,9 +1,9 @@
 # Custom
-.mp4
+*.mp4
 *.avi
-.jpg
-.png
-.pt
+*.jpg
+*.png
+*.pt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
