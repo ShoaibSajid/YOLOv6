@@ -1,6 +1,6 @@
 # Custom
 .mp4
-.avi
+*.avi
 .jpg
 .png
 .pt
